@@ -1,11 +1,58 @@
-# MakeCode
-built
-node_modules
-yotta_modules
-yotta_targets
-pxt_modules
-_site
-*.db
-*.tgz
-.header.json
-.simstate.json
+def on_button_pressed_a():
+    global player_x
+    led.toggle(player_x, 4)
+    player_x += -1
+    led.toggle(player_x, 4)
+    if player_x <= 0:
+        player_x = 0
+input.on_button_pressed(Button.A, on_button_pressed_a)
+
+def on_button_pressed_ab():
+    global BulletShot, Bullet, Bullet_Y, Edeathx, Edeathy
+    if BulletShot == False:
+        BulletShot = True
+        Bullet = player_x
+        Bullet_Y = 4
+        led.toggle(Bullet, Bullet_Y)
+        for index in range(4):
+            led.toggle(Bullet, Bullet_Y)
+            Bullet_Y += -1
+            led.toggle(Bullet, Bullet_Y)
+            if Bullet == Enemy_x:
+                Edeathx = True
+            if Bullet_Y == Enemy_y:
+                Edeathy = True
+            if True:
+                led.unplot(Bullet, Bullet_Y)
+            basic.pause(75)
+    led.unplot(Bullet, Bullet_Y)
+    BulletShot = False
+input.on_button_pressed(Button.AB, on_button_pressed_ab)
+
+def on_button_pressed_b():
+    global player_x
+    led.toggle(player_x, 4)
+    player_x += 1
+    led.toggle(player_x, 4)
+    if player_x >= 4:
+        player_x = 4
+input.on_button_pressed(Button.B, on_button_pressed_b)
+
+Edeathy = False
+Edeathx = False
+Bullet_Y = 0
+Bullet = 0
+BulletShot = False
+Enemy_x = 0
+Enemy_y = 0
+player_x = 0
+player_x = 2
+led.toggle(player_x, 4)
+Enemy_y = 0
+Enemy_x = 2
+led.toggle(Enemy_x, Enemy_y)
+
+def on_forever():
+    for index2 in range(5):
+        pass
+basic.forever(on_forever)
